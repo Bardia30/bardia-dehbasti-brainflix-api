@@ -15,7 +15,8 @@ router.get('/', (req, res)=>{
                     id: video.id, 
                     title: video.title, 
                     channel: video.channel, 
-                    image: video.image 
+                    // image: `http://localhost:5050/videos/${video.image}` 
+                    image: video.image
                 }
             })
             res.status(200).json(filteredVideos);
@@ -31,10 +32,17 @@ router.get('/:videoId', (req, res)=>{
             res.status(401).send(err); //make sure status code is correct
         } else {
             const foundVideo = videoData.find(video => video.id === req.params.videoId );
+            // const foundVideoWithUrl = {
+            //     ...foundVideo,
+            //     image: `http://localhost:5050/videos/${foundVideo.image}`
+            // }
             if (foundVideo) {
                 res.status(201).json(foundVideo);
+                
             } else {
-                res.status(404).send(`no video found with the id: ${req.params.videoId}`)
+                res.status(404).json({
+                    "message": `no video found with the id: ${req.params.videoId}`
+                })
             }
         }
     });

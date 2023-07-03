@@ -1,8 +1,20 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
+const cors = require('cors');
 const fs = require("fs");
-const cors = require("cors");
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(cors(
+    {
+        origin: "http://localhost:3000"
+    }
+))
+
+
 
 const videosRoutes = require('./routes/videos');
 
@@ -12,12 +24,9 @@ app.use('/videos', videosRoutes);
 
 app.use(express.json());
 
-app.use(express.static("public"));
 
 
-app.use(cors({
-    origin: "http://localhost:3000"
-}))
+
 
 const PORT = process.env.PORT || 5051 
 
@@ -29,6 +38,6 @@ app.get('/', (req, res)=>{
 
 
 
-app.listen(5050, ()=>{
+app.listen(PORT, ()=>{
     console.log(`server started for brainflix api on port http://localhost:${PORT}`);
 })
