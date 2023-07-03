@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const fs = require("fs");
@@ -18,6 +19,7 @@ app.use(cors({
     origin: "http://localhost:3000"
 }))
 
+const PORT = process.env.PORT || 5051 
 
 app.get('/', (req, res)=>{
     res.status(200).send("<h1>Welcome to BrainFlix Backend API</h1>");
@@ -28,5 +30,5 @@ app.get('/', (req, res)=>{
 
 
 app.listen(5050, ()=>{
-    console.log("server started for brainflix api on port http://localhost:5050");
+    console.log(`server started for brainflix api on port http://localhost:${PORT}`);
 })
