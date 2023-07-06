@@ -66,6 +66,13 @@
         "comment": "Who ever knew travel could be so easy? Looking forward to getting to put this into practice when I fly away in the near future. Wish me good luck!",
         "likes": 0,
         "timestamp": 1625177192000
+      },
+      {
+        "id": "36eb70ba-db38-4670-8b83-0f2b4c607ba4",
+        "name": "Bardia",
+        "comment": "Does this work?",
+        "likes": 0,
+        "timestamp": 1688612240980
       }
     ]
   },
@@ -311,7 +318,15 @@
     "duration": "9:23",
     "video": "https://project-2-api.herokuapp.com/stream",
     "timestamp": 1688609665097,
-    "comments": []
+    "comments": [
+      {
+        "id": "3bba4e27-953e-4512-92e6-4ed7fefa15c4",
+        "name": "Bardia",
+        "comment": "sdfgsdfg",
+        "likes": 0,
+        "timestamp": 1688612191291
+      }
+    ]
   },
   {
     "id": "cca578d0-267a-4bbf-8f55-d9783ef7324f",
@@ -324,6 +339,42 @@
     "duration": "9:21",
     "video": "https://project-2-api.herokuapp.com/stream",
     "timestamp": 1688609819321,
-    "comments": []
+    "comments": [
+      {
+        "id": "45d01adf-c18b-45ee-b8ec-047675fd6a7f",
+        "name": "Bardia",
+        "comment": "first comment that works",
+        "likes": 0,
+        "timestamp": 1688612223385
+      },
+      {
+        "id": "c6bcab97-116d-4ef5-9641-1efeee62b459",
+        "name": "Bardia",
+        "comment": "try this now\n",
+        "likes": 0,
+        "timestamp": 1688612255225
+      }
+    ]
+  },
+  {
+    "id": "dfe3c5ec-d505-48e2-a85d-5c8b61fa5819",
+    "title": "second for tonight",
+    "channel": "bardiCodes",
+    "image": "user-image/Upload-video-preview.jpg",
+    "description": "Alright Im going to call it a night",
+    "views": 162849,
+    "likes": 7752,
+    "duration": "0:40",
+    "video": "https://project-2-api.herokuapp.com/stream",
+    "timestamp": 1688612336739,
+    "comments": [
+      {
+        "id": "4109fdef-6214-4a99-8829-88965a21edf7",
+        "name": "Bardia",
+        "comment": "why is there a cors error?",
+        "likes": 0,
+        "timestamp": 1688612358950
+      }
+    ]
   }
 ]

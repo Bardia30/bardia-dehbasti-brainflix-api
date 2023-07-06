@@ -81,8 +81,40 @@ router.post('/', (req, res)=>{
             res.status(201).send(`your new video titled "${req.body.videoTitle}" has been uploaded`);
         })
     })
-    // res.status(201).json(`your new video titled "${req.body.videoTitle}" has been uploaded`);
+    
 })
 
+
+router.post('/:videoId/comments', (req, res) => {
+    const userComment = req.body.comment;
+
+    fs.readFile('./data/videos.json', 'utf8', (err, data) => {
+        if (err) {
+            return res.send(err);
+        }
+        const videoData = JSON.parse(data);
+        const foundVideo = videoData.find(video => video.id == req.params.videoId);
+        
+        
+        const commentsData = foundVideo.comments;
+        
+        const newComment = {
+            id: uuidv4(),
+            name: "Bardia",
+            comment: userComment,
+            likes: 0,
+            timestamp: Date.now()
+        }
+
+        commentsData.push(newComment);
+
+        fs.writeFile('./data/videos.json', JSON.stringify(videoData), (err)=>{
+            if (err){
+                return res.send(err);
+            }
+            res.status(201).send(`your comment has been added`);
+        })
+    })
+})
 
 module.exports = router;
