@@ -117,4 +117,34 @@ router.post('/:videoId/comments', (req, res) => {
     })
 })
 
+
+
+//TODO: write delete backend api request
+router.delete('/:videoId/comments/:commentId', (req, res)=>{
+    const videoId = req.params.videoId;
+    const commentId = req.params.commentId;
+
+    fs.readFile('./data/videos.json', 'utf8', (err, data)=> {
+        if (err) {
+            return res.send(err);
+        }
+        const videoData = JSON.parse(data);
+        const foundVideo = videoData.find(video => video.id === videoId);
+        
+        const videoComments = foundVideo.comments;
+        const foundComment = videoComments.find(comment => comment.id === commentId);
+
+        const commentIndex = videoComments.indexOf(foundComment);
+        videoComments.splice(commentIndex, 1);
+
+        fs.writeFile('./data/videos.json', JSON.stringify(videoData), (err)=> {
+            if (err) {
+                return res.send(err);
+            }
+            res.status(201).send(`your comment has been deleted`);
+        })
+    })
+})
+
+
 module.exports = router;
