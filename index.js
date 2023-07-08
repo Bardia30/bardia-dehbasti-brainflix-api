@@ -5,11 +5,10 @@ const cors = require('cors');
 const fs = require("fs");
 const path = require('path');
 
+
+app.use(cors());
+
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-app.use(cors())
-
 
 
 const videosRoutes = require('./routes/videos');
@@ -19,8 +18,6 @@ app.use('/videos', videosRoutes);
 
 
 app.use(express.json());
-
-
 
 
 

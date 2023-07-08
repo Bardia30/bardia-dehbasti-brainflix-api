@@ -51,6 +51,9 @@ router.post('/', (req, res)=>{
     const userTitle = req.body.videoTitle;
     const userDescription = req.body.videoDescription;
     //TODO: check if title and description are empty or not
+    if (userTitle === "" || userDescription === "" ) {
+        return res.status(401).send("cannot add a video without a title or description")
+    }
 
     fs.readFile('./data/videos.json', 'utf8', (err, data)=>{
         if (err) {
@@ -119,7 +122,7 @@ router.post('/:videoId/comments', (req, res) => {
 
 
 
-//TODO: write delete backend api request
+
 router.delete('/:videoId/comments/:commentId', (req, res)=>{
     const videoId = req.params.videoId;
     const commentId = req.params.commentId;
@@ -145,6 +148,47 @@ router.delete('/:videoId/comments/:commentId', (req, res)=>{
         })
     })
 })
+
+
+
+router.put('/:videoId/likes', (req, res) => {
+    const videoId = req.params.videoId;
+
+    fs.readFile('./data/videos.json', 'utf8', (err, data)=> {
+        if (err){
+            return res.send(err);
+        }
+        const videoData = JSON.parse(data);
+        const videoFound = videoData.find(video => video.id === videoId);
+
+
+        let videoLikes = videoFound.likes;
+        if (typeof videoLikes === 'string'){
+            let videoLikesArray = videoLikes.split(',');
+            let videosLikesJoined = Number(videoLikesArray.join(''));
+            videosLikesJoined += 1;
+            videoFound.likes = videosLikesJoined;
+        } else {
+            videoLikes += 1;
+            videoFound.likes = videoLikes;
+        }
+        
+
+        
+         
+
+
+
+
+        fs.writeFile('./data/videos.json', JSON.stringify(videoData), (err) => {
+            if (err) {
+                return res.send(err);
+            }
+            res.status(202).send('video likes has been updated');
+        })
+    })
+})
+
 
 
 module.exports = router;
