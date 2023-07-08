@@ -52,7 +52,7 @@ router.post('/', (req, res)=>{
     const userDescription = req.body.videoDescription;
     //TODO: check if title and description are empty or not
     if (userTitle === "" || userDescription === "" ) {
-        return res.status(401).send("cannot add a video without a title or description")
+        return res.status(400).send("cannot add a video without a title or description")
     }
 
     fs.readFile('./data/videos.json', 'utf8', (err, data)=>{

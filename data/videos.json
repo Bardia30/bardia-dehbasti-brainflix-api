@@ -390,18 +390,5 @@
                 "timestamp": 1688831812035
             }
         ]
-    },
-    {
-        "id": "32b62362-d81a-48fe-89d6-ec848c298eff",
-        "title": "",
-        "channel": "bardiCodes",
-        "image": "user-image/Upload-video-preview.jpg",
-        "description": "",
-        "views": 325231,
-        "likes": 5124,
-        "duration": "4:23",
-        "video": "https://project-2-api.herokuapp.com/stream",
-        "timestamp": 1688832566378,
-        "comments": []
     }
 ]
