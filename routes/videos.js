@@ -6,12 +6,12 @@ const { v4: uuidv4 } = require('uuid');
 
 router.use(express.json());
 
-
+//sends all videos information, does not send the entire info, just enough for articles section
 router.get('/', (req, res)=>{
     fs.readFile('./data/videos.json', 'utf8', (err, data)=>{
         const videoData = JSON.parse(data);
         if (err){
-            res.status(401).send(err); //make sure status code is ok 
+            res.status(401).send(err); 
         } else {
             const filteredVideos = videoData.map(video => {
                 return {
@@ -27,16 +27,16 @@ router.get('/', (req, res)=>{
 })
 
 
+//sends detailed info about a single video
 router.get('/:videoId', (req, res)=>{
     fs.readFile('./data/videos.json', 'utf8', (err, data) => {
         const videoData = JSON.parse(data);
         if (err) {
-            res.status(401).send(err); //make sure status code is correct
+            res.status(400).send(err); 
         } else {
             const foundVideo = videoData.find(video => video.id === req.params.videoId );
             if (foundVideo) {
-                res.status(201).json(foundVideo);
-                
+                res.status(200).json(foundVideo);
             } else {
                 res.status(404).json({
                     "message": `no video found with the id: ${req.params.videoId}`
@@ -46,11 +46,11 @@ router.get('/:videoId', (req, res)=>{
     });
 });
 
-
+//posting a new video to the db 
 router.post('/', (req, res)=>{
     const userTitle = req.body.videoTitle;
     const userDescription = req.body.videoDescription;
-    //TODO: check if title and description are empty or not
+    //checks if the title and description are empty, send an error
     if (userTitle === "" || userDescription === "" ) {
         return res.status(400).send("cannot add a video without a title or description")
     }
@@ -87,7 +87,7 @@ router.post('/', (req, res)=>{
     
 })
 
-
+//posting a new comment to a specific video
 router.post('/:videoId/comments', (req, res) => {
     const userComment = req.body.comment;
 
@@ -122,7 +122,7 @@ router.post('/:videoId/comments', (req, res) => {
 
 
 
-
+//delete a specific comment in a specific video
 router.delete('/:videoId/comments/:commentId', (req, res)=>{
     const videoId = req.params.videoId;
     const commentId = req.params.commentId;
@@ -144,7 +144,7 @@ router.delete('/:videoId/comments/:commentId', (req, res)=>{
             if (err) {
                 return res.send(err);
             }
-            res.status(201).send(`your comment has been deleted`);
+            res.status(200).send(`your comment has been deleted`);
         })
     })
 })
@@ -163,6 +163,7 @@ router.put('/:videoId/likes', (req, res) => {
 
 
         let videoLikes = videoFound.likes;
+        //checks if like value is a string or not and acts accordingly
         if (typeof videoLikes === 'string'){
             let videoLikesArray = videoLikes.split(',');
             let videosLikesJoined = Number(videoLikesArray.join(''));
@@ -174,17 +175,11 @@ router.put('/:videoId/likes', (req, res) => {
         }
         
 
-        
-         
-
-
-
-
         fs.writeFile('./data/videos.json', JSON.stringify(videoData), (err) => {
             if (err) {
                 return res.send(err);
             }
-            res.status(202).send('video likes has been updated');
+            res.status(200).send('video likes has been updated');
         })
     })
 })
